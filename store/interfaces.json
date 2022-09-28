@@ -1,0 +1,6 @@
+{
+  "inject": {
+    "component": "Inject",
+    "composition": "children"
+  }
+}
