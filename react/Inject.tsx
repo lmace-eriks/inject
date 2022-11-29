@@ -1,19 +1,26 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { canUseDOM } from "vtex.render-runtime";
+import React, { useEffect } from "react";
+// import { canUseDOM } from "vtex.render-runtime";
 
-// Styles
-import styles from "./styles.css";
 
 interface InjectProps {
-  inject: string
+  javascript: string
+  style: string
 }
 
-const Inject: StorefrontFunctionComponent<InjectProps> = ({ inject }) => {
+const Inject: StorefrontFunctionComponent<InjectProps> = ({ javascript, style }) => {
 
+  useEffect(() => {
+    if (!javascript) return;
+    const execute = new Function(javascript);
+    execute();
+  })
 
-  return (
-    <div dangerouslySetInnerHTML={{ __html: inject }} />
-  )
+  return (<>
+
+    {style && <style dangerouslySetInnerHTML={{ __html: style }} />}
+    {javascript && <div data-javascript={javascript} />}
+
+  </>)
 
 }
 
